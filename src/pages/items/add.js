@@ -1,30 +1,34 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
-import Button from "../../components/button";
-import ItemList from "./list";
 
 const AddItems = () => {
-  const [state, setState] = useState({
+  const [items, setItems] = useState({
+    date: "",
     itemName: "",
+    price: "",
   });
 
-  const handleSubmit = () => {
-    console.log(state);
-  };
+  function handleItemNameChange(e) {
+    setItems({ ...items, itemName: e.target.value });
+  }
+  function handleDateChange(e) {
+    setItems({ ...items, date: e.target.value });
+  }
+  function handlePriceChange(e) {
+    setItems({ ...items, price: e.target.value });
+  }
   return (
     <div>
-      <Input
-        type="text"
-        id="items"
-        title="Add Items"
-        onChange={(e) => {
-          setState((prevState) => {
-            return { ...prevState, itemName: e.target.value };
-          });
-        }}
-      />
-      <Button title="Approve" type="button" onSubmit={handleSubmit} />
-      <ItemList state={state} />
+      <form>
+        <Input title="Item Name" type="text" onChange={handleItemNameChange} />
+        <Input title="Date Purchased" type="date" onChange={handleDateChange} />
+        <Input title="Price" type="text" onChange={handlePriceChange} />
+      </form>
+      <div className="card p-3">
+        <h4>Item Name: {items.itemName}</h4>
+        <p>Date purchased: {items.date}</p>
+        <p>Price ${items.price}.00</p>
+      </div>
     </div>
   );
 };

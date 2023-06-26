@@ -5,7 +5,7 @@ const Button = (props) => {
     <button
       type={props.type}
       className="btn btn-success"
-      onSubmit={props.onSubmit}
+      onClick={props.onClick}
     >
       {props.title}
     </button>

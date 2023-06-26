@@ -7,7 +7,13 @@ const Input = (props) => {
         <label htmlFor={props.id} className="form-label">
           {props.title}
         </label>
-        <input type={props.type} className="form-control" id={props.id} />
+        <input
+          type={props.type}
+          className="form-control"
+          id={props.id}
+          value={props.value}
+          onChange={props.onChange}
+        />
       </div>
     </>
   );
