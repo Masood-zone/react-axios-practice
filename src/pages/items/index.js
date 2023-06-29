@@ -5,7 +5,7 @@ import AddItems from "./add";
 const MainApp = () => {
   return (
     <div>
-      <Card title="Record Book">
+      <Card title="Record Book Application">
         <AddItems />
       </Card>
     </div>

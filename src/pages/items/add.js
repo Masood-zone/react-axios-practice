@@ -2,33 +2,74 @@ import React, { useState } from "react";
 import Input from "../../components/input";
 
 const AddItems = () => {
-  const [items, setItems] = useState({
-    date: "",
-    itemName: "",
-    price: "",
-  });
+  const [itemName, setItemName] = useState("");
+  const [date, setDate] = useState("");
+  const [price, setPrice] = useState("");
+  const [items, setItems] = useState([]);
+  let unqId = 0;
+  function resetInputs() {
+    setItemName("");
+    setDate("");
+    setPrice("");
+  }
 
-  function handleItemNameChange(e) {
-    setItems({ ...items, itemName: e.target.value });
+  function handleClick(e) {
+    e.preventDefault();
+    const structure = {
+      unqId: unqId++,
+      itemName: itemName,
+      date: date,
+      price: price,
+    };
+    setItems((prevItems) => {
+      return [...prevItems, structure];
+    });
+    resetInputs();
   }
-  function handleDateChange(e) {
-    setItems({ ...items, date: e.target.value });
-  }
-  function handlePriceChange(e) {
-    setItems({ ...items, price: e.target.value });
-  }
+
   return (
     <div>
       <form>
-        <Input title="Item Name" type="text" onChange={handleItemNameChange} />
-        <Input title="Date Purchased" type="date" onChange={handleDateChange} />
-        <Input title="Price" type="text" onChange={handlePriceChange} />
+        <Input
+          title="Item Name"
+          value={itemName}
+          type="text"
+          onChange={(e) => {
+            setItemName(e.target.value);
+          }}
+        />
+        <Input
+          title="Date Purchased"
+          value={date}
+          type="date"
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
+        <Input
+          title="Price"
+          type="text"
+          value={price}
+          onChange={(e) => {
+            setPrice(e.target.value);
+          }}
+        />
+        <button className="btn btn-success" onClick={handleClick}>
+          Add
+        </button>
       </form>
-      <div className="card p-3">
-        <h4>Item Name: {items.itemName}</h4>
-        <p>Date purchased: {items.date}</p>
-        <p>Price ${items.price}.00</p>
-      </div>
+
+      {items.map((item) => {
+        return (
+          <>
+            <div className="card p-3 m-3" key={item.unqId}>
+              <h4>Item Name: {item.itemName}</h4>
+              <p>Date purchased: {item.date}</p>
+              <p>Price: ${item.price}</p>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 };
